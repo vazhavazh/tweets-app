@@ -2,6 +2,7 @@
   "name": "tweets-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vazhavazh.github.io/tweets-app/",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@reduxjs/toolkit": "^1.9.5",
