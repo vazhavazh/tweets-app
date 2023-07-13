@@ -34,8 +34,12 @@ export const TweetsPage = () => {
         nextLabel="Next"
         pageCount={Math.ceil(users.length / cardsPerPage)}
         onPageChange={handlePageChange}
-        containerClassName="pagination"
-        activeClassName="active"
+        containerClassName="pagination-container" // Применение класса контейнера
+        activeClassName="active" // Применение класса для активной страницы
+        pageClassName="pagination-item" // Применение класса для каждой страницы
+        previousClassName="pagination-previous" // Применение класса для кнопки "Previous"
+        nextClassName="pagination-next" // Применение класса для кнопки "Next"
+        disabledClassName="pagination-disabled" // Применение класса для отключенных кнопок
       />
     </>
   );

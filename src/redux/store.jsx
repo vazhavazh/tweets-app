@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
+  persistReducer,
   persistStore,
   FLUSH,
   REHYDRATE,
@@ -8,7 +9,14 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import { usersReducer } from './users/usersSlice';
+
+const usersPersistConfig = {
+  key: 'users',
+  storage,
+};
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -20,7 +28,7 @@ const middleware = [
 
 export const store = configureStore({
   reducer: {
-    users: usersReducer,
+    users: persistReducer(usersPersistConfig, usersReducer),
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',

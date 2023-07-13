@@ -14,3 +14,26 @@ export const fetchAllUsers = createAsyncThunk(
   }
 );
 
+export const follow = createAsyncThunk(
+  'users/follow',
+  async ({ userId, credentials }, thunkAPI) => {
+    try {
+      const response = await axios.put(`/users/${userId}`, credentials);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const unFollow = createAsyncThunk(
+  'users/unfollow',
+  async ({ userId, credentials }, thunkAPI) => {
+    try {
+      const response = await axios.put(`/users/${userId}`, credentials);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
