@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllUsers } from 'redux/users/usersOperations';
 import { selectAllUsers, selectFollowedUsers, selectLoading, selectUnfollowedUsers } from 'redux/users/usersSelectors';
+const CARDS_PER_PAGE = 3;
 
 export const TweetsPage = () => {
   const dispatch = useDispatch();
@@ -13,9 +14,11 @@ export const TweetsPage = () => {
   const unfollowedUsers = useSelector(selectUnfollowedUsers);
 
   const [displayedUsers, setDisplayedUsers] = useState([]);
-  const [loadMoreCount, setLoadMoreCount] = useState(3);
+  const [loadMoreCount, setLoadMoreCount] = useState(CARDS_PER_PAGE);
   const [filterType, setFilterType] = useState('All');
   const filteredUsersRef = useRef([]);
+
+  
 
   useEffect(() => {
     dispatch(fetchAllUsers());
@@ -35,12 +38,12 @@ export const TweetsPage = () => {
   }, [filterType, allUsers, followedUsers, unfollowedUsers, loadMoreCount]);
 
   const handleLoadMore = () => {
-    setLoadMoreCount(prevCount => prevCount + 3);
+    setLoadMoreCount(prevCount => prevCount + CARDS_PER_PAGE);
   };
 
   const handleFilterChange = event => {
     setFilterType(event.target.value);
-    setLoadMoreCount(3);
+    setLoadMoreCount(CARDS_PER_PAGE);
   };
 
   return (
