@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchAllUsers } from 'redux/users/usersOperations';
-import { selectAllUsers, selectFollowedUsers, selectLoading, selectUnfollowedUsers } from 'redux/users/usersSelectors';
+import {
+  selectAllUsers,
+  selectFollowedUsers,
+  selectLoading,
+  selectUnfollowedUsers,
+} from 'redux/users/usersSelectors';
 const CARDS_PER_PAGE = 3;
 
 export const TweetsPage = () => {
@@ -16,25 +21,24 @@ export const TweetsPage = () => {
 
   const [displayedUsers, setDisplayedUsers] = useState([]);
   const [loadMoreCount, setLoadMoreCount] = useState(CARDS_PER_PAGE);
-  const [filterType, setFilterType] = useState('All');
+  const [filterType, setFilterType] = useState('all');
   const filteredUsersRef = useRef([]);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate(-1);
   };
-  
 
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
   useEffect(() => {
-    if (filterType === 'All') {
+    if (filterType === 'all') {
       filteredUsersRef.current = allUsers;
-    } else if (filterType === 'Followed') {
+    } else if (filterType === 'following') {
       filteredUsersRef.current = followedUsers;
-    } else if (filterType === 'Unfollowed') {
+    } else if (filterType === 'follow') {
       filteredUsersRef.current = unfollowedUsers;
     }
 
@@ -60,9 +64,9 @@ export const TweetsPage = () => {
         <label>
           Filter By:
           <select value={filterType} onChange={handleFilterChange}>
-            <option value="All">All</option>
-            <option value="Followed">Followed</option>
-            <option value="Unfollowed">Unfollowed</option>
+            <option value="all">all</option>
+            <option value="following">following</option>
+            <option value="follow">follow</option>
           </select>
         </label>
       </div>
