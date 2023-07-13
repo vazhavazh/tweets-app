@@ -1,10 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { follow, unFollow } from 'redux/users/usersOperations';
+import { selectFollowedUsers } from 'redux/users/usersSelectors';
 import { updateFollowers } from 'redux/users/usersSlice';
 
 const UserCard = ({ id, user, avatar, tweets, followers }) => {
   const dispatch = useDispatch();
+  const followedUsers = useSelector(selectFollowedUsers);
 
   const handleFollow = () => {
     dispatch(
@@ -13,12 +15,12 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
         credentials: { user, avatar, tweets, followers: followers + 1 },
       })
     );
-     dispatch(
-       updateFollowers({
-         userId: id,
-         newFollowersCount: followers + 1,
-       })
-     );
+    dispatch(
+      updateFollowers({
+        userId: id,
+        newFollowersCount: followers + 1,
+      })
+    );
   };
 
   const handleUnfollow = () => {
@@ -36,6 +38,8 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
     );
   };
 
+  const isFollowed = followedUsers.some(user => user.id === id);
+
   return (
     <>
       <div>
@@ -43,8 +47,11 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
         <img src={avatar} alt="avatar" />
         <span>{tweets}</span>
         <h4>{followers}</h4>
-        <button onClick={handleFollow}>Follow</button>
-        <button onClick={handleUnfollow}>UnFollow</button>
+        {isFollowed ? (
+          <button onClick={handleUnfollow}>UnFollow</button>
+        ) : (
+          <button onClick={handleFollow}>Follow</button>
+        )}
       </div>
     </>
   );

@@ -7,7 +7,7 @@ const usersSlice = createSlice({
     users: [],
     isLoading: false,
     error: null,
-    newSubscriptions: [],
+    followedUsers: [],
   },
   reducers: {
     updateFollowers(state, action) {
@@ -29,15 +29,15 @@ const usersSlice = createSlice({
       .addCase(follow.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.newSubscriptions.push(action.payload);
+        state.followedUsers.push(action.payload);
       })
       .addCase(unFollow.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const index = state.newSubscriptions.findIndex(
+        const index = state.followedUsers.findIndex(
           user => user.id === action.payload.id
         );
-        state.newSubscriptions.splice(index, 1);
+        state.followedUsers.splice(index, 1);
       })
       .addMatcher(
         action => action.type.endsWith('/pending'),
