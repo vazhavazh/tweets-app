@@ -9,8 +9,9 @@ export const selectFollowedUsers = state => state.users.followedUsers;
 export const selectUnfollowedUsers = createSelector(
   [selectAllUsers, selectFollowedUsers],
   (allUsers, followedUsers) => {
-    return allUsers.filter(
-      user => !followedUsers.some(followedUser => followedUser.id === user.id)
-    );
+    const isFollowed = user =>
+      followedUsers.some(followedUser => followedUser.id === user.id);
+    const unfollowedUsers = allUsers.filter(user => !isFollowed(user));
+    return unfollowedUsers;
   }
 );

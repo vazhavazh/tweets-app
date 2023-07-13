@@ -7,6 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {
@@ -42,29 +43,3 @@ button {
   cursor: pointer;
 }
 
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.pagination-item {
-  display: inline-block;
-  margin: 0 5px;
-  cursor: pointer;
-}
-
-.pagination-previous,
-.pagination-next {
-  cursor: pointer;
-}
-
-.pagination-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.active {
-  font-weight: bold;
-}

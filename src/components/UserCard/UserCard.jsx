@@ -4,6 +4,7 @@ import { follow, unFollow } from 'redux/users/usersOperations';
 import { selectFollowedUsers } from 'redux/users/usersSelectors';
 import { updateFollowers } from 'redux/users/usersSlice';
 import { formatNumberWithCommas } from 'helpers/formatNumberWithCommas';
+import { CardLabel, FrameStyled, StyledLogo, UserCardContainer, WhiteLine } from './UserCardStyled';
 
 export const UserCard = ({ id, user, avatar, tweets, followers }) => {
   const dispatch = useDispatch();
@@ -43,8 +44,12 @@ export const UserCard = ({ id, user, avatar, tweets, followers }) => {
 
   return (
     <>
-      <div>
-        <h3>{user}</h3>
+      <UserCardContainer>
+        <StyledLogo />
+        <CardLabel />
+        <WhiteLine />
+        <FrameStyled />
+        {/* <h3>{user}</h3>
         <img src={avatar} alt="avatar" />
         <span>{tweets}</span>
         <h4>{formatNumberWithCommas(followers)}</h4>
@@ -52,8 +57,8 @@ export const UserCard = ({ id, user, avatar, tweets, followers }) => {
           <button onClick={handleUnfollow}>UnFollow</button>
         ) : (
           <button onClick={handleFollow}>Follow</button>
-        )}
-      </div>
+        )} */}
+      </UserCardContainer>
     </>
   );
 };
