@@ -7,9 +7,17 @@ const usersSlice = createSlice({
     users: [],
     isLoading: false,
     error: null,
-    subscriptions: [],
+    newSubscriptions: [],
   },
-  reducers: {},
+  reducers: {
+    updateFollowers(state, action) {
+      const { userId, newFollowersCount } = action.payload;
+      const user = state.users.find(user => user.id === userId);
+      if (user) {
+        user.followers = newFollowersCount;
+      }
+    },
+  },
   extraReducers: builder => {
     builder
 
@@ -18,23 +26,19 @@ const usersSlice = createSlice({
         state.error = null;
         state.users = action.payload;
       })
-      .addMatcher(
-        action =>
-          action.type === follow.fulfilled.type ||
-          action.type === unFollow.fulfilled.type,
-        (state, action) => {
-          state.isLoading = false;
-          state.error = null;
-          if (action.type === follow.fulfilled.type) {
-            state.subscriptions.push(action.payload);
-          } else if (action.type === unFollow.fulfilled.type) {
-            const index = state.subscriptions.findIndex(
-              user => user.id === action.payload.id
-            );
-            state.subscriptions.splice(index, 1);
-          }
-        }
-      )
+      .addCase(follow.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.newSubscriptions.push(action.payload);
+      })
+      .addCase(unFollow.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        const index = state.newSubscriptions.findIndex(
+          user => user.id === action.payload.id
+        );
+        state.newSubscriptions.splice(index, 1);
+      })
       .addMatcher(
         action => action.type.endsWith('/pending'),
         state => {
@@ -51,4 +55,6 @@ const usersSlice = createSlice({
   },
 });
 
+export const { updateFollowers } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
+

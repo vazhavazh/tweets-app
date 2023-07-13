@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { follow, unFollow } from 'redux/users/usersOperations';
+import { updateFollowers } from 'redux/users/usersSlice';
 
 const UserCard = ({ id, user, avatar, tweets, followers }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,12 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
         credentials: { user, avatar, tweets, followers: followers + 1 },
       })
     );
+     dispatch(
+       updateFollowers({
+         userId: id,
+         newFollowersCount: followers + 1,
+       })
+     );
   };
 
   const handleUnfollow = () => {
@@ -19,6 +26,12 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
       unFollow({
         userId: id,
         credentials: { user, avatar, tweets, followers: followers - 1 },
+      })
+    );
+    dispatch(
+      updateFollowers({
+        userId: id,
+        newFollowersCount: followers - 1,
       })
     );
   };
