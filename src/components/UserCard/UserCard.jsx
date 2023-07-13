@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { follow, unFollow } from 'redux/users/usersOperations';
 import { selectFollowedUsers } from 'redux/users/usersSelectors';
 import { updateFollowers } from 'redux/users/usersSlice';
+import { formatNumberWithCommas } from 'helpers/formatNumberWithCommas';
 
-const UserCard = ({ id, user, avatar, tweets, followers }) => {
+export const UserCard = ({ id, user, avatar, tweets, followers }) => {
   const dispatch = useDispatch();
   const followedUsers = useSelector(selectFollowedUsers);
 
@@ -46,7 +47,7 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
         <h3>{user}</h3>
         <img src={avatar} alt="avatar" />
         <span>{tweets}</span>
-        <h4>{followers}</h4>
+        <h4>{formatNumberWithCommas(followers)}</h4>
         {isFollowed ? (
           <button onClick={handleUnfollow}>UnFollow</button>
         ) : (
@@ -56,5 +57,3 @@ const UserCard = ({ id, user, avatar, tweets, followers }) => {
     </>
   );
 };
-
-export default UserCard;
