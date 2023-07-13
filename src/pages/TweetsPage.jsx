@@ -1,53 +1,48 @@
 import { Tweets } from 'components/Tweets/Tweets';
+import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllUsers } from 'redux/users/usersOperations';
 import { selectAllUsers, selectFollowedUsers, selectLoading, selectUnfollowedUsers } from 'redux/users/usersSelectors';
-import ReactPaginate from 'react-paginate';
 
 export const TweetsPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectLoading);
-  const users = useSelector(selectAllUsers);
+  const allUsers = useSelector(selectAllUsers);
   const followedUsers = useSelector(selectFollowedUsers);
-  const unFollowedUsers = useSelector(selectUnfollowedUsers);
-  const [currentPage, setCurrentPage] = useState(0);
+  const unfollowedUsers = useSelector(selectUnfollowedUsers);
+
+  const [displayedUsers, setDisplayedUsers] = useState([]);
+  const [loadMoreCount, setLoadMoreCount] = useState(3);
   const [filterType, setFilterType] = useState('All');
+  const filteredUsersRef = useRef([]);
 
-  const cardsPerPage = 3;
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, [dispatch]);
 
-  const paginateUsers = users => {
-    const offset = currentPage * cardsPerPage;
-    const result = users.slice(offset, offset + cardsPerPage);
-    return result;
+  useEffect(() => {
+    if (filterType === 'All') {
+      filteredUsersRef.current = allUsers;
+    } else if (filterType === 'Followed') {
+      filteredUsersRef.current = followedUsers;
+    } else if (filterType === 'Unfollowed') {
+      filteredUsersRef.current = unfollowedUsers;
+    }
+
+    const paginatedUsers = filteredUsersRef.current.slice(0, loadMoreCount);
+    setDisplayedUsers(paginatedUsers);
+  }, [filterType, allUsers, followedUsers, unfollowedUsers, loadMoreCount]);
+
+  const handleLoadMore = () => {
+    setLoadMoreCount(prevCount => prevCount + 3);
   };
-
-  const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected);
-  };
-
-//  selectFollowedUsers;
-//  selectUnfollowedUsers;
 
   const handleFilterChange = event => {
     setFilterType(event.target.value);
+    setLoadMoreCount(3);
   };
 
-   let filteredUsers = [];
-   if (filterType === 'All') {
-     filteredUsers = users;
-   } else if (filterType === 'Followed') {
-     filteredUsers = followedUsers;
-   } else if (filterType === 'Unfollowed') {
-     filteredUsers = unFollowedUsers;
-  }
-  
-  const paginatedUsers = paginateUsers(filteredUsers)
-
-   useEffect(() => {
-     dispatch(fetchAllUsers());
-   }, [dispatch]);
-  
   return (
     <>
       <h1>This is Tweets page</h1>
@@ -62,19 +57,10 @@ export const TweetsPage = () => {
           </select>
         </label>
       </div>
-      <Tweets users={paginatedUsers} />
-      <ReactPaginate
-        previousLabel="Previous"
-        nextLabel="Next"
-        pageCount={Math.ceil(filteredUsers.length / cardsPerPage)}
-        onPageChange={handlePageChange}
-        containerClassName="pagination-container" // Применение класса контейнера
-        activeClassName="active" // Применение класса для активной страницы
-        pageClassName="pagination-item" // Применение класса для каждой страницы
-        previousClassName="pagination-previous" // Применение класса для кнопки "Previous"
-        nextClassName="pagination-next" // Применение класса для кнопки "Next"
-        disabledClassName="pagination-disabled" // Применение класса для отключенных кнопок
-      />
+      <Tweets users={displayedUsers} />
+      {displayedUsers.length < filteredUsersRef.current.length && (
+        <button onClick={handleLoadMore}>Load More</button>
+      )}
     </>
   );
 };
