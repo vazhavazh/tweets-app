@@ -2,7 +2,7 @@ import { Tweets } from 'components/Tweets/Tweets';
 import { useRef } from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { fetchAllUsers } from 'redux/users/usersOperations';
 import { selectAllUsers, selectFollowedUsers, selectLoading, selectUnfollowedUsers } from 'redux/users/usersSelectors';
 const CARDS_PER_PAGE = 3;
@@ -18,7 +18,11 @@ export const TweetsPage = () => {
   const [loadMoreCount, setLoadMoreCount] = useState(CARDS_PER_PAGE);
   const [filterType, setFilterType] = useState('All');
   const filteredUsersRef = useRef([]);
+  const navigate = useNavigate();
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
   
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export const TweetsPage = () => {
       <h1>This is Tweets page</h1>
       <div>{isLoading && 'Request in progress...'}</div>
       <div>
-        <NavLink to="/">Go Back</NavLink>
+        <button onClick={handleGoBack}>GO BACK</button>
         <label>
           Filter By:
           <select value={filterType} onChange={handleFilterChange}>
