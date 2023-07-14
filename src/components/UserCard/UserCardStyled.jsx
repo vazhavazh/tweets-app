@@ -82,4 +82,40 @@ export const TweetsQuantity = styled.span`
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
+
+  margin-bottom: 16px;
+`;
+
+
+export const FollowersQuantity = styled.span`
+  color: #ebd8ff;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+
+  margin-bottom: 26px;
+`;
+
+
+
+export const FollowButton = styled.button`
+  width: 196px;
+  padding: 14px 28px;
+  border-radius: 10.311px;
+  background-color: ${props => (props.isFollowed ? '#5cd3a8' : '#EBD8FF')};
+  box-shadow: 0px 3.4369285106658936px 3.4369285106658936px 0px
+    rgba(0, 0, 0, 0.25);
+`;
+
+export const FollowText = styled.span`
+  color: #373737;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
 `;
