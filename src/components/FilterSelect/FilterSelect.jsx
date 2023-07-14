@@ -3,10 +3,10 @@ import Select from 'react-select';
 
 const customStyles = {
   control: (provided, state) => ({
-        ...provided,
+    ...provided,
     flex: 1,
-      cursor: 'pointer',
-        fontFamily: 'Montserrat, sans-serif',
+    cursor: 'pointer',
+    fontFamily: 'Montserrat, sans-serif',
     alignSelf: 'center',
     fontWeight: 500,
     outline: 'none',

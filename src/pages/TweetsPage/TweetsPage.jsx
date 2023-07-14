@@ -14,7 +14,6 @@ import {
   FilterContainer,
   GoBackButton,
   LoadMoreButton,
-  LoadMoreText,
 } from './TweetsPageStyled';
 import FilterSelect from 'components/FilterSelect/FilterSelect';
 const CARDS_PER_PAGE = 3;
@@ -74,7 +73,6 @@ export const TweetsPage = () => {
         <span>Go back</span>
       </GoBackButton>
       <FilterContainer>
-        
         <FilterSelect
           value={filterType}
           onChange={handleFilterChange}
@@ -84,7 +82,7 @@ export const TweetsPage = () => {
       <Tweets users={displayedUsers} />
       {displayedUsers.length < filteredUsersRef.current.length && (
         <LoadMoreButton onClick={handleLoadMore}>
-          <LoadMoreText>Load more</LoadMoreText>
+          <span>Load more</span>
         </LoadMoreButton>
       )}
     </>

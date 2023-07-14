@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
 axios.defaults.baseURL = 'https://64234c1c77e7062b3e2f81ce.mockapi.io/';
 
@@ -9,6 +10,7 @@ export const fetchAllUsers = createAsyncThunk(
       const response = await axios.get('/users');
       return response.data;
     } catch (error) {
+      Notify.failure(`Oops something go wrong ...`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -21,6 +23,7 @@ export const follow = createAsyncThunk(
       const response = await axios.put(`/users/${userId}`, credentials);
       return response.data;
     } catch (error) {
+      Notify.failure(`Oops something go wrong ...`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -33,6 +36,7 @@ export const unFollow = createAsyncThunk(
       const response = await axios.put(`/users/${userId}`, credentials);
       return response.data;
     } catch (error) {
+      Notify.failure(`Oops something go wrong ...`);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

@@ -57,4 +57,3 @@ const usersSlice = createSlice({
 
 export const { updateFollowers } = usersSlice.actions;
 export const usersReducer = usersSlice.reducer;
-

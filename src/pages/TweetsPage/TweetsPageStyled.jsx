@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
-  
-`;
+export const Container = styled.div``;
 export const LoadMoreButton = styled.div`
+  cursor: pointer;
   box-sizing: border-box;
   margin-top: 48px;
   margin-left: auto;
@@ -16,21 +15,28 @@ export const LoadMoreButton = styled.div`
     rgba(0, 0, 0, 0.25);
   border-color: transparent;
   text-align: center;
-`;
-
-export const LoadMoreText = styled.span`
-  color: #373737;
-  font-family: Montserrat;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-transform: uppercase;
-  
+  transition: background-color 0.3s ease-in-out;
+  span {
+    color: #373737;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
+  }
+  &:hover,
+  &:focus {
+    background-color: #5cd3a8;
+    span {
+      color: #ffff;
+    }
+  }
 `;
 
 export const GoBackButton = styled.div`
-cursor: pointer;
+  cursor: pointer;
   box-sizing: border-box;
   margin-right: auto;
   max-width: 124px;
@@ -44,6 +50,7 @@ cursor: pointer;
   text-align: center;
   margin-bottom: 16px;
   margin-top: 16px;
+  transition: background-color 0.3s ease-in-out;
   span {
     color: #fff;
     font-family: Montserrat;
@@ -52,20 +59,16 @@ cursor: pointer;
     font-weight: 500;
     line-height: normal;
     text-transform: uppercase;
+    transition: color 0.3s ease-in-out;
   }
   &:hover,
   &:focus {
     background-color: transparent;
-    
+
     span {
       color: black;
     }
   }
-`;
-
-export const GoBackText = styled.span`
-  
-  
 `;
 
 export const FilterContainer = styled.div`
@@ -75,6 +78,4 @@ export const FilterContainer = styled.div`
   margin-bottom: 16px;
   margin-right: auto;
   margin-left: auto;
-
 `;
-

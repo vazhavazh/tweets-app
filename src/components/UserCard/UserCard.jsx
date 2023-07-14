@@ -8,7 +8,6 @@ import {
   Avatar,
   CardLabel,
   FollowButton,
-  FollowText,
   FollowersQuantity,
   FrameStyled,
   StyledLogo,
@@ -69,7 +68,7 @@ export const UserCard = ({ id, user, avatar, tweets, followers }) => {
           isFollowed={isFollowed}
           onClick={isFollowed ? handleUnfollow : handleFollow}
         >
-          <FollowText>{isFollowed ? 'Following' : 'Follow'}</FollowText>
+          <span>{isFollowed ? 'Following' : 'Follow'}</span>
         </FollowButton>
       </UserCardContainer>
     </>
