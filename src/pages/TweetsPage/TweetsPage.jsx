@@ -10,7 +10,19 @@ import {
   selectLoading,
   selectUnfollowedUsers,
 } from 'redux/users/usersSelectors';
+import {
+  FilterContainer,
+  GoBackButton,
+  LoadMoreButton,
+  LoadMoreText,
+} from './TweetsPageStyled';
+import FilterSelect from 'components/FilterSelect/FilterSelect';
 const CARDS_PER_PAGE = 3;
+const FILTER_OPTIONS = [
+  { value: 'all', label: 'ALL' },
+  { value: 'following', label: 'FOLLOWING' },
+  { value: 'follow', label: 'FOLLOW' },
+];
 
 export const TweetsPage = () => {
   const dispatch = useDispatch();
@@ -50,29 +62,30 @@ export const TweetsPage = () => {
     setLoadMoreCount(prevCount => prevCount + CARDS_PER_PAGE);
   };
 
-  const handleFilterChange = event => {
-    setFilterType(event.target.value);
+  const handleFilterChange = filterValue => {
+    setFilterType(filterValue);
     setLoadMoreCount(CARDS_PER_PAGE);
   };
 
   return (
     <>
-      <h1>This is Tweets page</h1>
       <div>{isLoading && 'Request in progress...'}</div>
-      <div>
-        <button onClick={handleGoBack}>GO BACK</button>
-        <label>
-          Filter By:
-          <select value={filterType} onChange={handleFilterChange}>
-            <option value="all">all</option>
-            <option value="following">following</option>
-            <option value="follow">follow</option>
-          </select>
-        </label>
-      </div>
+      <GoBackButton onClick={handleGoBack}>
+        <span>Go back</span>
+      </GoBackButton>
+      <FilterContainer>
+        
+        <FilterSelect
+          value={filterType}
+          onChange={handleFilterChange}
+          options={FILTER_OPTIONS}
+        />
+      </FilterContainer>
       <Tweets users={displayedUsers} />
       {displayedUsers.length < filteredUsersRef.current.length && (
-        <button onClick={handleLoadMore}>Load More</button>
+        <LoadMoreButton onClick={handleLoadMore}>
+          <LoadMoreText>Load more</LoadMoreText>
+        </LoadMoreButton>
       )}
     </>
   );

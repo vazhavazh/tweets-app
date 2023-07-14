@@ -108,6 +108,7 @@ export const FollowButton = styled.button`
   background-color: ${props => (props.isFollowed ? '#5cd3a8' : '#EBD8FF')};
   box-shadow: 0px 3.4369285106658936px 3.4369285106658936px 0px
     rgba(0, 0, 0, 0.25);
+    border-color: transparent;
 `;
 
 export const FollowText = styled.span`

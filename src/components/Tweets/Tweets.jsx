@@ -1,5 +1,6 @@
 import {UserCard} from 'components/UserCard/UserCard';
 import React from 'react';
+import { Gallery } from './TweetsStyled';
 
 export const Tweets = ({ users }) => {
 
@@ -8,7 +9,7 @@ export const Tweets = ({ users }) => {
   return (
     <>
     
-      <ul>
+      <Gallery>
         {users.map(({ id, user, avatar, tweets, followers }) => (
           <li key={id}>
             <UserCard
@@ -20,7 +21,7 @@ export const Tweets = ({ users }) => {
             />
           </li>
         ))}
-      </ul>
+      </Gallery>
     </>
   );
 };

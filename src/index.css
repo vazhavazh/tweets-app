@@ -1,4 +1,13 @@
 @import-normalize; /* bring in normalize.css styles */
+html {
+  margin: 0 auto;
+  
+  border-radius: 8px;
+  background: linear-gradient(142deg, #fff3e0 0%, #fffdc7 50%, #ffeed5 100%);
+  
+  box-sizing: border-box;
+padding-bottom: 16px;
+}
 
 body {
   margin: 0;
@@ -7,8 +16,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
-
-
 
 h1,
 h2,
@@ -37,4 +44,3 @@ a {
 button {
   cursor: pointer;
 }
-

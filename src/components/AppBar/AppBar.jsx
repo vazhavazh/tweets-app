@@ -1,11 +1,11 @@
-import { NavLink } from 'react-router-dom';
+import { Nav, StyledNavLink } from './AppBarStyled';
 
 export const AppBar = () => {
   return (
-    <nav>
-      <NavLink to="/">Home</NavLink>
+    <Nav>
+      <StyledNavLink to="/">Home</StyledNavLink>
 
-      <NavLink to="/tweets">Tweets</NavLink>
-    </nav>
+      <StyledNavLink to="/tweets">Tweets</StyledNavLink>
+    </Nav>
   );
 };
